@@ -1,4 +1,7 @@
+import { useSession } from 'next-auth/react';
+
 const HeaderLink = ({ text, Icon, avatar, feed, active, hidden }) => {
+	const { data: session } = useSession();
 	return (
 		<div
 			className={` ${
@@ -9,7 +12,11 @@ const HeaderLink = ({ text, Icon, avatar, feed, active, hidden }) => {
 				? 'text-black/60 hover:text-black dark:text-white/75 dark:hover:text-white lg:-mb-1.5 gap-y-1'
 				: 'text-gray-500 hover:text-gray-700'
 		} ${active && '!text-black dark:!text-white'}`}>
-			{avatar ? <Icon className="!h-7 !w-7 lg:!-mb-1" /> : <Icon />}
+			{avatar ? (
+				<Icon className="!h-7 !w-7 lg:!-mb-1" src={session?.user?.image} />
+			) : (
+				<Icon />
+			)}
 			<h4 className={`text-sm ${feed && 'hidden lg:flex justify-center w-full mx-auto'}`}>
 				{text}
 			</h4>

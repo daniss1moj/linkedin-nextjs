@@ -1,8 +1,11 @@
 import { Avatar } from '@mui/material';
 import Image from 'next/image';
 import { BookmarkOutlined, AddRounded } from '@mui/icons-material';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 const Sidebar = () => {
+	const { data: session } = useSession();
 	return (
 		<div className="space-y-2 min-w-max max-w-lg">
 			{/* Top */}
@@ -11,15 +14,17 @@ const Sidebar = () => {
 					<Image src="https://rb.gy/i26zak" fill priority />
 				</div>
 				<Avatar
-					// onClick={signOut}
-					src="https://www.w3schools.com/w3images/avatar2.png"
+					onClick={signOut}
+					src={session?.user?.image}
 					className="!h-14 !w-14 !border-2 !absolute !top-4 !cursor-pointer"
 				/>
 				<div className="mt-5 p-4 space-x-0.5 ">
 					<h4 className="hover:underline decoration-purple-700 underline-offset-1 cursor-pointer">
-						Daniel Onishchenko
+						{session?.user?.name}
 					</h4>
-					<p className="text-black/70 dark:text-white/75 text-sm">email@gmail.com</p>
+					<p className="text-black/70 dark:text-white/75 text-sm">
+						{session?.user?.email}
+					</p>
 				</div>
 				<div className="hidden md:inline text-left dark:text-white text-sm">
 					<div className="font-medium sidebarButton space-y-0.5">

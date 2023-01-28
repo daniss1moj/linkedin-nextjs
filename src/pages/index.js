@@ -1,13 +1,33 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { Inter } from '@next/font/google';
-import { signOut } from 'next-auth/react';
+
+import { getSession, signOut, useSession } from 'next-auth/react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
+import { useRouter } from 'next/router';
+import Feed from '@/components/Feed';
+import { AnimatePresence } from 'framer-motion';
+import { useRecoilState } from 'recoil';
+import { modalState, modalTypeState } from '@/atoms/modalAtom';
+import Modal from '@/components/Modal';
+import axios from 'axios';
+import Widgets from '@/components/Widgets';
 
-const inter = Inter({ subsets: ['latin'] });
+export default function Home({ posts, articles }) {
+	const router = useRouter();
+	const [modalOpen, setModalOpen] = useRecoilState(modalState);
+	const [modalType, setModalType] = useRecoilState(modalTypeState);
+	const { data: session, status } = useSession({
+		required: true,
+		onUnauthenticated() {
+			router.push('/home');
+		},
+	});
 
-export default function Home() {
+	if (status === 'loading') {
+		return `Loading or not authenticated`;
+	}
+
 	return (
 		<div className="bg-[#f3f2ef] dark:bg-black dark:text-white h-screen overflow-y-scroll md:space-y-6">
 			<Head>
@@ -20,10 +40,44 @@ export default function Home() {
 			<main className="flex justify-center gap-x-5 px-4 sm:px-12">
 				<div className="flex flex-col md:flex-row gap-5">
 					<Sidebar />
-					{/* Feed */}
+					<Feed posts={posts} />
 				</div>
-				{/* Widgets */}
+				<Widgets articles={articles} />
+				<AnimatePresence>
+					{modalOpen && (
+						<Modal handleClose={() => setModalOpen(false)} type={modalType} />
+					)}
+				</AnimatePresence>
 			</main>
 		</div>
 	);
+}
+
+export async function getServerSideProps(context) {
+	// Check if user is authenticated
+	const session = await getSession(context);
+	if (!session) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/home',
+			},
+		};
+	}
+
+	const { data } = await axios.get('http://localhost:3000/api/posts');
+
+	const {
+		data: { articles },
+	} = await axios.get(
+		`https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEWS_API_KEY}`,
+	);
+
+	return {
+		props: {
+			articles: articles,
+			session,
+			posts: data,
+		},
+	};
 }

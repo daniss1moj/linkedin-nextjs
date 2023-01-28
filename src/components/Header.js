@@ -8,6 +8,7 @@ import {
 	HomeRounded,
 	AppsOutlined,
 } from '@mui/icons-material';
+import { Avatar } from '@mui/material';
 import { useEffect, useState } from 'react';
 import HeaderLink from './HeaderLink';
 import { useTheme } from 'next-themes';
@@ -22,11 +23,11 @@ const spring = {
 const Header = () => {
 	const [mounted, setMounted] = useState(false);
 	const { setTheme, resolvedTheme, theme } = useTheme();
+
 	useEffect(() => setMounted(true), []);
 
 	if (!mounted) return null;
 
-	console.log(theme);
 	return (
 		<header className="sticky top-0 z-40 bg-white dark:bg-[#1D2226] flex items-center justify-around py-1.5 px-3 focus-within:shadow-lg w-full mx-auto">
 			<div className="flex items-center gap-x-2 w-full max-w-xs">
@@ -55,7 +56,7 @@ const Header = () => {
 				<HeaderLink Icon={BusinessCenter} text="Jobs" feed hidden />
 				<HeaderLink Icon={Chat} text="Messaging" feed />
 				<HeaderLink Icon={Notifications} text="Notifications" feed />
-				{/* <HeaderLink Icon={Avatar} text="Me" feed avatar hidden /> */}
+				<HeaderLink Icon={Avatar} text="Me" feed avatar hidden />
 				<HeaderLink Icon={AppsOutlined} text="Work" feed hidden />
 				{mounted && (
 					<div

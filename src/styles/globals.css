@@ -18,4 +18,10 @@
 	.sidebarLink {
 		@apply text-[13px] font-medium text-blue-500 hover:underline cursor-pointer;
 	}
+	.inputButton {
+		@apply flex items-center gap-x-2 font-medium cursor-pointer text-sm;
+	}
+	.postButton {
+		@apply flex  items-center justify-center space-x-2 cursor-pointer hover:bg-black/10 dark:hover:bg-black/20 flex-1 py-2.5 rounded transition ease-out font-medium;
+	}
 }
