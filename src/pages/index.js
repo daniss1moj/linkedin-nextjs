@@ -12,7 +12,6 @@ import { modalState, modalTypeState } from '@/atoms/modalAtom';
 import Modal from '@/components/Modal';
 import axios from 'axios';
 import Widgets from '@/components/Widgets';
-import { connectToDatabase } from '@/util/mongo';
 
 export default function Home({ posts, articles }) {
 	const router = useRouter();
@@ -55,7 +54,7 @@ export default function Home({ posts, articles }) {
 }
 
 export async function getServerSideProps(context) {
-	//Check if user is authenticated
+	// Check if user is authenticated
 	const session = await getSession(context);
 	if (!session) {
 		return {
@@ -66,9 +65,7 @@ export async function getServerSideProps(context) {
 		};
 	}
 
-	// Get posts on SSR
-	const { db } = await connectToDatabase();
-	const posts = await db.collection('posts').find().sort({ timestamp: -1 }).toArray();
+	const { data } = await axios.get(`https://linkedin-nextjs-sable.vercel.app/api/posts`);
 
 	const {
 		data: { articles },
@@ -80,7 +77,7 @@ export async function getServerSideProps(context) {
 		props: {
 			articles: articles,
 			session,
-			posts: posts,
+			posts: data,
 		},
 	};
 }
