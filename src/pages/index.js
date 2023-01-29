@@ -65,7 +65,7 @@ export async function getServerSideProps(context) {
 		};
 	}
 
-	const { data } = await axios.get('http://localhost:3000/api/posts');
+	const { data } = await axios.get(`${process.env.NEXTAUTH_URL}/api/posts`);
 
 	const {
 		data: { articles },
