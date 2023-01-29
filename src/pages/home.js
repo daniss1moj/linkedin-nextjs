@@ -61,7 +61,7 @@ const Home = ({ providers }) => {
 					</div>
 				</div>
 				<div className="relative xl:absolute w-80 h-80 xl:w-[650px] xl:h-[650px] top-14 right-5">
-					<Image src={src} fill priority />
+					<Image src={src} fill priority alt="bg" />
 				</div>
 			</main>
 		</div>

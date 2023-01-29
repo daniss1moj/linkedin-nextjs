@@ -11,7 +11,7 @@ const Sidebar = () => {
 			{/* Top */}
 			<div className="bg-white dark:bg-[#1d2226] rounded-lg overflow-hidden relative flex flex-col items-center text-center border-gray-300 dark:border-none">
 				<div className="relative w-full h-14">
-					<Image src="https://rb.gy/i26zak" fill priority />
+					<Image src="https://rb.gy/i26zak" fill priority alt="avatar" />
 				</div>
 				<Avatar
 					onClick={signOut}

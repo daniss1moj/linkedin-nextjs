@@ -35,7 +35,7 @@ const Widgets = ({ articles }) => {
 			</div>
 			<div className="bg-white dark:bg-[#1d2226] w-11/12 h-64 px-2.5 rounded-lg sticky top-20 border border-gray-300 dark:border-none">
 				<div className="w-full h-full relative">
-					<Image src="https://rb.gy/kbfeaa" fill objectFit="contain" priority />
+					<Image src="https://rb.gy/kbfeaa" fill objectFit="contain" priority alt="ad" />
 				</div>
 			</div>
 		</div>

@@ -208,7 +208,7 @@ const Post = ({ post, modalPost }) => {
 									src={session?.user?.image}
 									className="!h-10 !w-10 cursor-pointer"
 								/>
-								<input
+								<motion.input
 									whileHover={{ scale: 1.02 }}
 									whileTap={{ scale: 0.98 }}
 									className="rounded-full border border-gray-300 py-2.5 px-3 opacity-80 hover:opacity-100 font-medium w-full text-left"
@@ -240,7 +240,8 @@ const Post = ({ post, modalPost }) => {
 											initial="hidden"
 											animate="visible"
 											transition={{
-												duration: 0.2 + 0.05 * i,
+												duration: 0.2,
+												delay: 0.05 * i,
 											}}>
 											<Avatar
 												src={comment?.user?.image}

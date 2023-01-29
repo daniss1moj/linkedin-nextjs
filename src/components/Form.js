@@ -34,7 +34,7 @@ const Form = () => {
 			<textarea
 				placeholder="What do you want to talk about?"
 				rows="4"
-				className="bg-transparent focus:outline-none dark:placeholder-white/75 resize-none"
+				className="bg-transparent focus:outline-none dark:placeholder-white/75 resize-none !scrollbar !scrollbar-track-transparent !scrollbar-thumb-slate-700 !scrollbar-thin p-2 pr-3"
 				value={input}
 				onChange={(e) => setInput(e.target.value)}
 			/>
