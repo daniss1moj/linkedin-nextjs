@@ -55,15 +55,15 @@ export default function Home({ posts, articles }) {
 
 export async function getServerSideProps(context) {
 	// Check if user is authenticated
-	const session = await getSession(context);
-	if (!session) {
-		return {
-			redirect: {
-				permanent: false,
-				destination: '/home',
-			},
-		};
-	}
+	// const session = await getSession(context);
+	// if (!session) {
+	// 	return {
+	// 		redirect: {
+	// 			permanent: false,
+	// 			destination: '/home',
+	// 		},
+	// 	};
+	// }
 
 	const { data } = await axios.get(`https://linkedin-nextjs-sable.vercel.app/api/posts`);
 
