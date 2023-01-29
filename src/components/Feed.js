@@ -10,7 +10,7 @@ const Feed = ({ posts }) => {
 
 	useEffect(() => {
 		const fetchPosts = async () => {
-			const response = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`, {
+			const response = await fetch(`https://linkedin-nextjs-sable.vercel.app/api/posts`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
